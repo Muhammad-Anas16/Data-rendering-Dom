@@ -195,6 +195,7 @@ const data = [
 
 function openModal(groupName) {
     modal.style.display = 'flex';
+    main.style.display = 'none';
 
     tbl.innerHTML = ' '; // when modal open it the tbl will start empty;
 
@@ -235,6 +236,7 @@ function openModal(groupName) {
 
 function closeModal() {
     modal.style.display = 'none';
+    main.style.display = 'flex';
 };
 
 //           getElements
