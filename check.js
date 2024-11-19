@@ -191,79 +191,69 @@ const data = [
     }
 ];
 
-//           funtions
-
 function openModal(groupName) {
-    modal.style.display = 'flex';
-    // main.style.display = 'none';
 
-    tbl.innerHTML = ' '; // when modal open it the tbl will start empty;
+    modal.style.display = "flex";
 
-    let theData = {}; // Create a Empty Object;
+    tbl.innerHTML = ' ';
 
+    let thisData = {};
+    
     for (let key in data[0].groups) {
 
         if (groupName == data[0].groups[key].name) {
+
+            thisData = data[0].groups[key];
+
+            console.log(data[0].groups[key]);
             
-            theData = data[0].groups[key];
-            
-            console.log(data[0].groups[key]); // only show the data on which user click;
         }
     };
 
     tbl.innerHTML = `<tr>
-    <th>NAME</th>
-    <th>CODE</th>
-    <th>PLAYED</th>
-    <th>WON</th>
-    <th>LOST</th>
-    </tr>`;
+  <th>Team</th>
+  <th>Code</th>
+  <th>Played</th>
+  <th>Won</th>
+  <th>Lost</th>
+  </tr>`;
 
-    for (var i in theData.standings) {
+    for (var key in thisData.standings) {
 
-        // console.log(i, theData.standings[i]);
+        // console.log(key, thisData.standings[key]);
 
-        let tr = document.createElement('tr');
+        let tr = document.createElement("tr");
         tr.innerHTML = `
-        <td>${theData.standings[i]?.team?.name}</td>
-        <td>${theData.standings[i]?.team?.code}</td>
-        <td>${theData.standings[i]?.played}</td>
-        <td>${theData.standings[i]?.won}</td>
-        <td>${theData.standings[i]?.lost}</td>`;
+        <td>${thisData.standings[key]?.team?.name}</td>
+        <td>${thisData.standings[key]?.team?.code}</td>
+        <td>${thisData.standings[key]?.played}</td>
+        <td>${thisData.standings[key]?.won}</td>
+        <td>${thisData.standings[key]?.lost}</td>`;
 
         tbl.appendChild(tr);
-
-    };
-
-};
+    }
+}
 
 function closeModal() {
-    modal.style.display = 'none';
-    // main.style.display = 'flex';
-};
+    modal.style.display = "none";
+}
 
-//           getElements
 
-let modal = document.getElementsByClassName('modal')[0];
-let modalBody = document.getElementsByClassName('modalBody')[0];
-let main = document.getElementsByClassName('main')[0];
-let tbl = document.getElementsByClassName('tbl')[0];
-tbl.setAttribute('border', '1')
+let modal = document.getElementsByClassName("modal")[0];
+let modalBody = document.getElementsByClassName("modalBody")[0];
+let main = document.getElementsByClassName("main")[0];
+let tbl = document.createElement("table");
+tbl.setAttribute('border', '1');
 
 //           Loop
 
 for (var i in data[0].groups) {
 
-    let group = document.createElement('div'); // create a <Div> for every name Key;
+    let group = document.createElement("div");
 
-    group.setAttribute('class', 'groupBox'); // give it a class;
-    group.setAttribute("onClick", 'openModal(`${data[0].groups[i].name}`)'); // pass argument in it;
-    group.innerHTML = data[0].groups[i]?.name; // for showing group Name;
+    group.setAttribute("class", "groupBox");
+
+    group.setAttribute("onClick", openModal('${data[0].groups[i].name}'));
+    group.innerHTML = data[0].groups[i].name;
     main.appendChild(group);
-
-    // console.log(group);
-
-};
-
-
-// it only showing the data of ( Group : C );
+}
